@@ -1,0 +1,447 @@
+/* ไฟล์ assets/css/style.css */
+/* รูปแบบพื้นฐานสำหรับเว็บไซต์ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* ส่วนหัวเว็บไซต์ */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+header .logo a:hover {
+  color: #4CAF50;
+}
+
+header nav ul {
+  display: flex;
+  list-style: none;
+}
+
+header nav ul li {
+  margin-left: 20px;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+header nav ul li a:hover {
+  background-color: #444;
+}
+
+header nav ul li a.active {
+  background-color: #4CAF50;
+}
+
+/* ส่วนหลักของเว็บไซต์ */
+main {
+  padding: 30px 0;
+  min-height: auto; /* หรือค่าที่เล็กลง เช่น 100px */
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 15px;
+  border-left: 5px solid #4CAF50;
+  padding-left: 10px;
+}
+
+/* ไอเทมห้องซ้อม */
+.room-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.room-item {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.room-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.room-image {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.room-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+
+.room-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.room-item:hover .room-image img {
+  transform: scale(1.05);
+}
+
+.room-details {
+  padding: 15px;
+}
+
+.room-details h3 {
+  margin-bottom: 10px;
+  color: #333;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.room-details h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #4CAF50;
+}
+
+.room-price {
+  font-weight: bold;
+  color: #e91e63;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.room-capacity {
+  color: #777;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.room-capacity::before {
+  content: '👥';
+  margin-right: 5px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #4CAF50;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  background-color: #45a049;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+}
+
+/* Banner สำหรับหน้า index */
+.booking-banner {
+  background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('../images/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+}
+
+.booking-banner h2 {
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  color: white;
+  border: none;
+}
+
+.booking-banner p {
+  font-size: 1.2em;
+  max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+/* ฟอร์ม */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #4CAF50;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* แจ้งเตือน */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border-left: 4px solid #0c5460;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 4px solid #155724;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border-left: 4px solid #856404;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #721c24;
+}
+
+/* ส่วนท้ายเว็บไซต์ */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+/* สำหรับหน้าจอมือถือ */
+@media (max-width: 768px) {
+  header .container {
+    flex-direction: column;
+  }
+  
+  header .logo {
+    margin-bottom: 15px;
+  }
+  
+  header nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  header nav ul li {
+    margin: 5px;
+  }
+  
+  .room-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ไฟล์ assets/css/admin.css */
+/* CSS สำหรับหน้า Admin */
+
+.admin-section {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th, .user-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.user-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.user-table tr:hover {
+  background-color: #eaeaea;
+}
+
+.btn-edit {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background-color: #45a049;
+}
+
+/* สไตล์สำหรับ Badge แสดงสถานะ */
+.role-badge, .status-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+/* สีของ Role Badge */
+.role-admin {
+  background-color: #dc3545;
+  color: white;
+}
+
+.role-staff {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.role-user {
+  background-color: #28a745;
+  color: white;
+}
+
+/* สีของ Status Badge */
+.status-active {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-inactive {
+  background-color: #6c757d;
+  color: white;
+}
+
+.status-banned {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status-pending {
+  background-color: #ffc107;
+  color: black;
+}
+
+/* สไตล์สำหรับ Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 5px;
+  width: 50%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.close-modal {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: #000;
+}
+
+
+
