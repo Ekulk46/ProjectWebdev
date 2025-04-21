@@ -158,13 +158,24 @@ if ($result) {
         }
         
         .add-room-btn {
-            background-color: #4CAF50;
-            color: white;
+            display: inline-block;
             padding: 10px 15px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: all 0.3s;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .add-room-btn:hover {
+        background-color: #45a049;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transform: translateY(-2px);
         }
         
         .room-cards {
@@ -269,6 +280,18 @@ if ($result) {
             background-color: #f44336;
             color: white;
         }
+
+        .btn-edit:hover {
+        background-color:rgb(69, 105, 160);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transform: translateY(-2px);
+        }
+
+        .btn-delete:hover {
+        background-color:rgb(160, 69, 69);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transform: translateY(-2px);
+        }
         
         .modal-content {
             max-width: 700px;
@@ -330,6 +353,46 @@ if ($result) {
             flex: 1;
         }
         
+
+        /* โครงสร้างพื้นฐานของ Modal */
+        .modal {
+            display: none; /* ซ่อนก่อน */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* scroll ถ้าเนื้อหาเกิน */
+            background-color: rgba(0,0,0,0.5); /* พื้นหลังมืด */
+        }
+
+        /* กล่องเนื้อหา */
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ปุ่มปิด */
+        .close-modal {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* fade in */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
         /* ปรับแต่งสำหรับหน้าจอมือถือ */
         @media (max-width: 768px) {
             .room-cards {
@@ -353,7 +416,9 @@ if ($result) {
                     <li><a href="index.php">จัดการผู้ใช้</a></li>
                     <li><a href="rooms.php" class="active">จัดการห้อง</a></li>
                     <li><a href="bookings.php">จัดการการจอง</a></li>
-                    <li><a href="../auth/logout.php">ออกจากระบบ</a></li>
+                    <li>
+                        <a href="<?php echo getBaseUrl(); ?>/auth/logout.php" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?')">ออกจากระบบ</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -393,24 +458,6 @@ if ($result) {
                 <div class="stat-card">
                     <h3>ห้องที่เปิดให้บริการ</h3>
                     <p><?php echo $available_rooms; ?></p>
-                </div>
-                <div class="stat-card">
-                    <h3>จำนวนคนรองรับรวม</h3>
-                    <p><?php echo $total_capacity; ?> คน</p>
-                </div>
-                <div class="stat-card">
-                    <h3>ราคาเฉลี่ย/ชั่วโมง</h3>
-                    <p><?php 
-                        $avg_price = 0;
-                        if ($total_rooms > 0) {
-                            $total_price = 0;
-                            foreach ($rooms as $room) {
-                                $total_price += $room['hourly_rate'];
-                            }
-                            $avg_price = $total_price / $total_rooms;
-                        }
-                        echo number_format($avg_price, 2);
-                    ?> บาท</p>
                 </div>
             </div>
             
@@ -562,7 +609,7 @@ if ($result) {
     
     <footer>
         <div class="container">
-        <p>&copy; <?php echo date('Y'); ?> ระบบจองห้องซ้อมดนตรี. สงวนลิขสิทธิ์</p>
+        <p>&copy; <?php echo date('Y'); ?> ระบบจองห้องซ้อมดนตรี</p>
         </div>
     </footer>
     
@@ -628,7 +675,7 @@ if ($result) {
             let noResults = true;
             
             for (let i = 0; i < rooms.length; i++) {
-                const roomName = rooms[i].getAttribute('data-name');
+                const roomName = rooms[i].getAttribute('data-name').toLowerCase();
                 
                 if (roomName.includes(filter)) {
                     rooms[i].style.display = '';
@@ -645,7 +692,6 @@ if ($result) {
                 if (!noResultsElement) {
                     noResultsElement = document.createElement('div');
                     noResultsElement.id = 'noResults';
-                    noResultsElement.className = 'alert alert-info';
                     noResultsElement.className = 'alert alert-info';
                     noResultsElement.style.gridColumn = '1 / -1';
                     noResultsElement.textContent = 'ไม่พบห้องที่ค้นหา';

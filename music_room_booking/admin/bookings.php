@@ -120,12 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['complete_booking'])) 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_booking'])) {
     $delete_booking_id = intval($_POST['booking_id']);
     
-    // ลบข้อมูลการชำระเงินที่เกี่ยวข้องก่อน (เพื่อไม่ให้เกิด Foreign Key Constraint)
-    $delete_payment_sql = "DELETE FROM payments WHERE booking_id = ?";
-    $delete_payment_stmt = mysqli_prepare($conn, $delete_payment_sql);
-    mysqli_stmt_bind_param($delete_payment_stmt, "i", $delete_booking_id);
-    mysqli_stmt_execute($delete_payment_stmt);
-    
     // ลบข้อมูลการจอง
     $delete_sql = "DELETE FROM bookings WHERE booking_id = ?";
     $delete_stmt = mysqli_prepare($conn, $delete_sql);
@@ -397,6 +391,45 @@ foreach ($bookings as $booking) {
             margin-right: 5px;
         }
 
+        /* โครงสร้างพื้นฐานของ Modal */
+        .modal {
+            display: none; /* ซ่อนก่อน */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* scroll ถ้าเนื้อหาเกิน */
+            background-color: rgba(0,0,0,0.5); /* พื้นหลังมืด */
+        }
+
+        /* กล่องเนื้อหา */
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ปุ่มปิด */
+        .close-modal {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* fade in */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
         /* ปรับขนาดตารางให้เหมาะสมกับหน้าจอมือถือ */
         @media (max-width: 768px) {
             .booking-table {
@@ -431,7 +464,9 @@ foreach ($bookings as $booking) {
                     <li><a href="index.php">จัดการผู้ใช้</a></li>
                     <li><a href="rooms.php">จัดการห้อง</a></li>
                     <li><a href="bookings.php" class="active">จัดการการจอง</a></li>
-                    <li><a href="../auth/logout.php">ออกจากระบบ</a></li>
+                    <li>
+                        <a href="<?php echo getBaseUrl(); ?>/auth/logout.php" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?')">ออกจากระบบ</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -587,9 +622,9 @@ foreach ($bookings as $booking) {
             <form method="POST" action="">
                 <input type="hidden" id="confirm_booking_id" name="booking_id" value="">
                 
-                <div class="form-group" style="display: flex; justify-content: center; gap: 150px; margin-top: 20px;">
-                    <button type="button" class="btn" onclick="closeModal('confirmModal')">ยกเลิก</button>
-                    <button type="submit" name="confirm_booking" class="btn btn-confirm">ยืนยันการจอง</button>
+                <div class="form-group" style="display: flex; justify-content: left; gap: 20px; margin-top: 20px;">
+                    <button type="button" class="btn btn-cancel" onclick="closeModal('confirmModal')">ยกเลิก</button>
+                    <button type="submit" name="confirm_booking" class="btn btn-confirm" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการยืนยัน?')">ยืนยันการจอง</button>
                 </div>
             </form>
         </div>
@@ -605,9 +640,9 @@ foreach ($bookings as $booking) {
             <form method="POST" action="">
                 <input type="hidden" id="cancel_booking_id" name="booking_id" value="">
                 
-                <div class="form-group" style="display: flex; justify-content: center; gap: 150px; margin-top: 20px;">
-                    <button type="button" class="btn" onclick="closeModal('cancelModal')">ปิด</button>
-                    <button type="submit" name="cancel_booking" class="btn btn-cancel">ยกเลิกการจอง</button>
+                <div class="form-group" style="display: flex; justify-content: left; gap: 20px; margin-top: 20px;">
+                    <button type="button" class="btn btn-cancel" onclick="closeModal('cancelModal')">ปิด</button>
+                    <button type="submit" name="cancel_booking" class="btn">ยกเลิกการจอง</button>
                 </div>
             </form>
         </div>
@@ -642,7 +677,7 @@ foreach ($bookings as $booking) {
             <form method="POST" action="">
                 <input type="hidden" id="delete_booking_id" name="booking_id" value="">
                 
-                <div class="form-group" style="display: flex; justify-content: center; gap: 150px; margin-top: 20px;">
+                <div class="form-group" style="display: flex; justify-content: left; gap: 20px; margin-top: 20px;">
                     <button type="button" class="btn" onclick="closeModal('deleteModal')">ยกเลิก</button>
                     <button type="submit" name="delete_booking" class="btn btn-delete">ยืนยันการลบ</button>
                 </div>

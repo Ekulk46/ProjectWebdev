@@ -28,7 +28,10 @@ require_once __DIR__ . '/functions.php';
                     <?php if (isLoggedIn()): ?>
                         <li><a href="<?php echo getBaseUrl(); ?>/booking/create.php">จองห้องซ้อม</a></li>
                         <li><a href="<?php echo getBaseUrl(); ?>/booking/view.php">การจองของฉัน</a></li>
-                        <li><a href="<?php echo getBaseUrl(); ?>/auth/logout.php">ออกจากระบบ</a></li>
+                        <li>
+                            <a href="<?php echo getBaseUrl(); ?>/auth/logout.php" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?')">ออกจากระบบ</a>
+                        </li>
+
                     <?php else: ?>
                         <li><a href="<?php echo getBaseUrl(); ?>/auth/login.php">เข้าสู่ระบบ</a></li>
                         <li><a href="<?php echo getBaseUrl(); ?>/auth/register.php">สมัครสมาชิก</a></li>

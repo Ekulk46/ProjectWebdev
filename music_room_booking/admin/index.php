@@ -289,12 +289,53 @@ if ($result) {
         .pagination a:hover:not(.active) {
             background-color: #f1f1f1;
         }
-        
-        /* ปรับแต่ง Modal */
+
+        /* โครงสร้างพื้นฐานของ Modal */
+        .modal {
+            display: none; /* ซ่อนก่อน */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* scroll ถ้าเนื้อหาเกิน */
+            background-color: rgba(0,0,0,0.5); /* พื้นหลังมืด */
+        }
+
+        /* กล่องเนื้อหา */
         .modal-content {
-            max-width: 500px;
-            width: 90%;
+            background-color: #fff;
             margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ปุ่มปิด */
+        .close-modal {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* ภาพ preview */
+        .form-preview-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* fade in */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
         
         /* ปรับขนาดตารางให้เหมาะสมกับหน้าจอมือถือ */
@@ -327,7 +368,9 @@ if ($result) {
                     <li><a href="index.php" class="active">จัดการผู้ใช้</a></li>
                     <li><a href="rooms.php">จัดการห้อง</a></li>
                     <li><a href="bookings.php">จัดการการจอง</a></li>
-                    <li><a href="../auth/logout.php">ออกจากระบบ</a></li>
+                    <li>
+                        <a href="<?php echo getBaseUrl(); ?>/auth/logout.php" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?')">ออกจากระบบ</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -505,7 +548,7 @@ if ($result) {
     
     <footer>
         <div class="container">
-            <p>&copy; <?php echo date('Y'); ?> ระบบจองห้องซ้อมดนตรี. สงวนลิขสิทธิ์.</p>
+            <p>&copy; <?php echo date('Y'); ?> ระบบจองห้องซ้อมดนตรี</p>
         </div>
     </footer>
     

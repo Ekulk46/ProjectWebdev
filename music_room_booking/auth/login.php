@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <footer>
         <div class="container">
-            <p>&copy; <?php echo date('Y'); ?> ระบบจองห้องซ้อมดนตรี. สงวนลิขสิทธิ์.</p>
+            <p>&copy; <?php echo date('Y'); ?> ระบบจองห้องซ้อมดนตรี</p>
         </div>
     </footer>
     <script src="../assets/js/style.js"></script>

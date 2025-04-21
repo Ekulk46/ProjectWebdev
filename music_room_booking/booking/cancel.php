@@ -110,8 +110,8 @@ $room = mysqli_fetch_assoc($room_result);
         
         <form method="POST" action="">
             <div class="form-group">
-                <button type="submit" class="btn btn-danger">ยืนยันการยกเลิก</button>
-                <a href="view.php" class="btn">ยกเลิกและกลับไปยังรายการจอง</a>
+                <button type="button" onclick="window.location.href='view.php'" class="btn btn-danger">กลับ</button>
+                <button type="submit" class="btn" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการจอง?')">ยืนยัน</button>
             </div>
         </form>
     </div>
@@ -120,3 +120,10 @@ $room = mysqli_fetch_assoc($room_result);
 <?php
 require_once '../includes/footer.php';
 ?>
+
+<style>
+    .btn-danger {
+    background-color: #dc3545;
+    color: white;
+    }
+</style>
