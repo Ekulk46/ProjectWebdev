@@ -531,6 +531,46 @@ foreach ($bookings as $booking) {
                 </div>
                 <button class="btn" onclick="resetDateFilter()">รีเซ็ตวันที่</button>
             </div>
+
+            <!-- ส่วนดาวน์โหลดรายงาน -->
+            <div class="report-section" style="margin-bottom: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 5px; border: 1px solid #ddd;">
+                <h3>ดาวน์โหลดรายงานสรุป</h3>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                    <div>
+                        <label for="report_month">เดือน:</label>
+                        <select id="report_month" name="report_month" class="form-control">
+                            <option value="1" <?php echo date('n') == 1 ? 'selected' : ''; ?>>มกราคม</option>
+                            <option value="2" <?php echo date('n') == 2 ? 'selected' : ''; ?>>กุมภาพันธ์</option>
+                            <option value="3" <?php echo date('n') == 3 ? 'selected' : ''; ?>>มีนาคม</option>
+                            <option value="4" <?php echo date('n') == 4 ? 'selected' : ''; ?>>เมษายน</option>
+                            <option value="5" <?php echo date('n') == 5 ? 'selected' : ''; ?>>พฤษภาคม</option>
+                            <option value="6" <?php echo date('n') == 6 ? 'selected' : ''; ?>>มิถุนายน</option>
+                            <option value="7" <?php echo date('n') == 7 ? 'selected' : ''; ?>>กรกฎาคม</option>
+                            <option value="8" <?php echo date('n') == 8 ? 'selected' : ''; ?>>สิงหาคม</option>
+                            <option value="9" <?php echo date('n') == 9 ? 'selected' : ''; ?>>กันยายน</option>
+                            <option value="10" <?php echo date('n') == 10 ? 'selected' : ''; ?>>ตุลาคม</option>
+                            <option value="11" <?php echo date('n') == 11 ? 'selected' : ''; ?>>พฤศจิกายน</option>
+                            <option value="12" <?php echo date('n') == 12 ? 'selected' : ''; ?>>ธันวาคม</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="report_year">ปี:</label>
+                        <select id="report_year" name="report_year" class="form-control">
+                            <?php 
+                            $current_year = date('Y');
+                            for($i = $current_year - 2; $i <= $current_year + 1; $i++): 
+                            ?>
+                            <option value="<?php echo $i; ?>" <?php echo $i == $current_year ? 'selected' : ''; ?>><?php echo $i; ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+                    <div style="margin-left: auto;">
+                        <button id="downloadReport" class="btn" style="background-color: #2E7D32; color: white;" onclick="downloadReport()">
+                            <i class="fa fa-download"></i> ดาวน์โหลดรายงาน
+                        </button>
+                    </div>
+                </div>
+            </div>
             
             <div class="admin-section">
                 <table class="table booking-table" id="bookingTable">
@@ -799,7 +839,7 @@ foreach ($bookings as $booking) {
                 }
             });
         }
-        
+
         // ฟังก์ชันสำหรับรีเซ็ตตัวกรองวันที่
         function resetDateFilter() {
             document.getElementById('start_date').value = '';
@@ -847,6 +887,19 @@ foreach ($bookings as $booking) {
                 });
             });
         });
+
+        // ฟังก์ชันสำหรับดาวน์โหลดรายงาน
+        function downloadReport() {
+            const month = document.getElementById('report_month').value;
+            const year = document.getElementById('report_year').value;
+            
+            if (!month || !year) {
+                alert('กรุณาเลือกเดือนและปีก่อนดาวน์โหลดรายงาน');
+                return;
+            }
+            
+            window.location.href = `generate_report.php?month=${month}&year=${year}`;
+        }
     </script>
 </body>
 </html>

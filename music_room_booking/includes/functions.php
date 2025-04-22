@@ -90,16 +90,6 @@ function sanitize($data) {
     return $data;
 }
 
-// ฟังก์ชันสร้าง QR code สำหรับการชำระเงิน
-function generatePaymentQRCode($booking_id, $amount) {
-    // สมมติว่ามีการสร้าง QR code สำหรับการชำระเงิน
-    $qr_code_path = "assets/images/qr_codes/payment_" . $booking_id . ".png";
-    
-    // เพิ่มโค้ดสำหรับสร้าง QR code ที่นี่ (ในที่นี้เป็นแค่ stub)
-    
-    return $qr_code_path;
-}
-
 // ฟังก์ชันแสดงข้อความแจ้งเตือน
 function showAlert($message, $type = 'info') {
     return '<div class="alert alert-' . $type . '">' . $message . '</div>';

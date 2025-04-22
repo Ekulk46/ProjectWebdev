@@ -67,6 +67,6 @@ require_once __DIR__ . '/../includes/footer.php';
 
 <?php
 echo '<pre>';
-print_r($room['image_url']);
+
 echo '</pre>';
 ?>
